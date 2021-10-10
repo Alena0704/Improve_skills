@@ -1,43 +1,58 @@
 class node:
-  def __init__(self, name):
-    self.childs = []
+  def __init__(self, name, parent):
+    self.childs = {}
     self.name = name
-nodes={}
-answer=[]
-def define_relative(steck, parent, child):
-    if child not in steck:
-      steck.extend(nodes[parent].childs)
-      if len(steck)==0:
-        return False
-      parent = steck.pop()
-      if define_relative(nodes, parent, child):
+    self.parent=parent
+
+def is_child(node, expected_child):
+    if node == expected_child: return True
+    for child in nodes[node]:
+      if is_child(child, expected_child):
         return True
-    else:
-      return True
-def define_both(nodes, parent, child):
-    y1 = define_relative(nodes, child, parent)
-    y2=define_relative(nodes, parent,child)
-    #print(y1,y2)
-    if y1==True and y2 ==False:
-        return 1
-    elif y2==True and y1==False:
-        return 2
-    else:
-      return 0
-with open('input.txt') as f:
-  k = int(f.readline())
-  sch = 0
-  for line in f:
+    return False
+
+def is_parent(node, expected_parent):
+    while node is not None: 
+      if node == expected_parent: return True
+      node = parents.get(node, None)
+    return False
+
+def decision_from_parent(file_name='input.txt'):
+  parents={}
+  answer=[]
+  with open(file_name) as f:
+    k = int(f.readline())
+    for _ in range(k):
+      line = f.readline()
+      ch, parent = map(str, line.split())
+      parents[ch] = parent
+    for line in f:
+      ch, parent = map(str, line.split())
+      y1 = is_parent(ch, parent)
+      y2=is_parent(parent,ch)
+      ans = 2 if y1 else 0
+      ans = 1 if y2 else 0
+      answer.append(define_both(parent, ch))
+    print(" ".join(map(str,answer)))
+def decision_from_child(file_name='input.txt'):
+  nodes={}
+  answer=[]
+  with open(file_name) as f:
+    k = int(f.readline())
+    for _ in range(k):
+      line = f.readline()
+      ch, parent = map(str, line.split())
+      if parent is not nodes:
+        nodes[parent]=[]
+      nodes[parent].append(ch)
+      nodes[ch]=[]
+    for line in f:
+      ch, parent = map(str, line.split())
+      y1 = is_child(ch, parent)
+      y2=is_child(parent,ch)
+      ans = 2 if y1 else 0
+      ans = 1 if y2 else 0
+      answer.append(define_both(parent, ch))
+    print(" ".join(map(str,answer)))
     
-    if sch<k-1:
-      ch, parent = map(str, line.split())
-      if parent not in nodes:
-        nodes[parent] = node(parent)
-      nodes[parent].childs.append(ch)
-      nodes[ch]=node(ch)
-    else:
-      
-      ch, parent = map(str, line.split())
-      answer.append(define_both([], parent, ch))
-    sch+=1
-print(" ".join(map(str,answer)))
+decision_from_parent('input.txt')
