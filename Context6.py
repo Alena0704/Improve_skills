@@ -1,5 +1,6 @@
 '''
-
+Describe problem in
+https://contest.yandex.ru/contest/29188/problems/A/
 '''
 class desicion_A:
     def __init__(self):
