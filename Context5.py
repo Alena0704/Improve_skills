@@ -12,6 +12,49 @@ def prefix_sum():
         for i in range(q):
             l, r = map(int, f.readline().split())
             print(prefix_sums[r] - prefix_sums[l-1])
+
+class decision:
+    def __init__(self):
+        self.n, self.r = map(int, input().split())
+        self.lst = list(map(int, input().split()))
+        self.arr = [0 for j in range(self.n*2)]
+        for k in range(self.n*2-1, self.n-1, -1):
+            self.arr[k]=self.lst[k-self.n]
+        for k in range(self.n-1, 0, -1):
+            self.arr[k] = self.arr[k*2]+self.arr[k*2+1]
+
+    def get_lens(self):
+        for i in range(self.r):
+            print(self.get_sum())
+
+    def get_sum(self):
+        left, right = map(int, input().split())
+        sum_=0
+        l=self.n+left-1
+        r=self.n+right-1    
+        while True:
+            if l%2==1:
+                sum_+=self.arr[l]
+            if r%2==0:
+                sum_+=self.arr[r]
+            if l%2==0:
+                l=l//2
+            else:
+                l=l//2+1
+            if r%2==1:
+                r=r//2
+            else:
+                r=r//2-1
+            if l>r:
+                break
+            if l==r:
+                sum_+=self.arr[l]
+                break
+        return sum_
+
+des = decision()
+des.get_lens()
+
 '''
 Describe problem in
 https://contest.yandex.ru/contest/29075/problems/B/
@@ -40,6 +83,21 @@ def max_sum_subseq(items):
         max_sum = max(temp_sum, max_sum)
     return max(max_sum, 0)
 
+def max_sum2():
+    n = int(input())
+    arr = list(map(int, input().split()))
+    print(max_sum_subseq(arr))
+def max_sum_subseq(items):
+    iter_items = iter(items)
+    try:
+        temp_sum = next(iter_items)
+    except StopIteration:
+        temp_sum = 0
+    max_sum = temp_sum
+    for item in iter_items:
+        temp_sum = max(temp_sum + item, item)
+        max_sum = max(temp_sum, max_sum)
+    return max(max_sum, 0)
 '''
 Describe problem in
 https://contest.yandex.ru/contest/29075/problems/C/
