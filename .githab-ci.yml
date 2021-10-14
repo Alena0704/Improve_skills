@@ -1,0 +1,31 @@
+image: python:latest
+job1:
+  script:
+    - pip install pycodestyle
+    - for file in ./**; do
+        - pycodestyle file
+      done
+job2:
+  script:
+    - python -m unittest -v test_case6.py
+# pages:
+#   image: python:latest
+#   script:
+#     - pip install sphinx
+#     - make html
+#     - mv build/html/ public/
+#   artifacts:
+#    paths:
+#    - public
+#   only:
+#   - master
+# dockers:
+#   tags:
+#     - my-tag
+#   before_script:
+#     - docker info
+#   script:
+#     - ls -al
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     - docker build -t gitlab-hlit.jinr.ru/rybakina/first_project ~
+#     - docker push gitlab-hlit.jinr.ru/rybakina/first_project
