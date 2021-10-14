@@ -163,7 +163,12 @@ def get_desicion_square(a,b,c,d):
             answer.append(ans)
             answer.append(0)
 
-
+def get_numbers(number):
+    lst = []
+    for i in range(number):
+        if number%i==0:
+            lst.append(i)
+            lst.append(-i)
 def get_decision_cube(a,b,c,d):
     answer = []
     if a+b+c+d==0:
@@ -171,7 +176,10 @@ def get_decision_cube(a,b,c,d):
     elif b+d==a+c:
         return -1
     else:
-        pass
+        candidats = get_numbers(a) + get_numbers(d)
+        for i in candidats:
+            if a*i**3+b*i**2+c*i+d==0:
+                answer.append(i)
 
 def get_definite_null(a,b,c,d):
     if a*b*c*d==0:
@@ -183,3 +191,27 @@ def get_decision_exercise():
     a,b,c,d = map(int, input().split())
     if a*b*c*d==0:
         get_definite_null(a,b,c,d)
+class expression:
+    def __init__(self):
+        self.a,self.b,self.c,self.d = map(int, input().split())
+        if self.a<0:
+            self.a = -self.a
+            self.b = -self.b
+            self.c = -self.c
+            self.d = -self.d
+
+    def f(self,x):
+        return self.a*x**3+self.b*x**2+self.c*x+self.d
+    def root(self,eps = 0.00001):
+        left = -2000
+        right = 2000
+        while right-left>eps:
+            m = (right+left)/2
+            if self.f(m)>0:
+                right=m
+            else:
+                left=m
+        return (left+right)/2
+            
+exp = expression()
+print(exp.root())
