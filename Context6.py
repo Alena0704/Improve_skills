@@ -1,6 +1,7 @@
 '''
 Describe problem in
 https://contest.yandex.ru/contest/29188/problems/A/
+https://contest.yandex.ru/contest/29188/problems/B/
 '''
 class desicion_A:
     def __init__(self):
@@ -100,5 +101,85 @@ class desicion_A:
             ans.append((a+1,b+1))
         for i,j in ans:
             print('{} {}'.format(i,j))
-desicion = desicion_A()
-desicion.left_right_border2()
+#desicion = desicion_A()
+#desicion.left_right_border2()
+
+'''
+Describe problem:
+https://contest.yandex.ru/contest/29188/problems/C/
+'''
+def get_squere_expression(a,b,c):
+    if a*b*c==0:
+        D = b**2-4*a*c
+        if D>0:
+            return ((-b+D**0.5)//(2*a),(-b-D**0.5)//(2*a))
+        elif D==0:
+            return (-b//(2*a))
+        else:
+            None
+    else:
+        if a==0:
+            return get_cube_with_b(b,c)
+        if b==0:
+            return get_cube_with_c(a,c)
+
+def get_cube_with_b(a,b):
+    if a!=0:
+        return -b/a
+    elif a==0:
+        return None
+    else:
+        return 0
+
+def get_cube_with_c(a,b):
+    if b<0:
+        if a!=0:
+            return ((-b/a)**0.5, -(-b/a)**0.5)
+        else:
+            return 0
+    elif b==0:
+        return 0
+    else:
+        return None
+
+def get_desicion_square(a,b,c,d):
+    answer=[]
+    if a == 0:
+        ans = get_squere_expression(b,c,d)
+        if ans != None:
+            answer.append(ans)
+    elif d ==0:
+        ans = get_squere_expression(a,b,c)
+        if ans != None:
+            answer.append(ans)
+    elif b==0:
+        ans = get_cube_with_c(a,b)
+        if ans != None:
+            answer.append(ans)
+            answer.append(0)
+    elif c==0:
+        ans = get_cube_with_b(a,c)
+        if ans != None:
+            answer.append(ans)
+            answer.append(0)
+
+
+def get_decision_cube(a,b,c,d):
+    answer = []
+    if a+b+c+d==0:
+        return 1
+    elif b+d==a+c:
+        return -1
+    else:
+        pass
+
+def get_definite_null(a,b,c,d):
+    if a*b*c*d==0:
+        get_desicion_square(a,b,c,d)
+    else:
+        get_decision_cube(a,b,c,d)
+
+def get_decision_exercise():
+    a,b,c,d = map(int, input().split())
+    if a*b*c*d==0:
+        get_definite_null(a,b,c,d)
