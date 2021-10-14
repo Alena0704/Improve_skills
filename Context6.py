@@ -186,9 +186,11 @@ class expression:
     def __init__(self):
         self.a,self.b,self.c,self.d = map(int, input().split())
         self.__preprocess()
+        
     def __init__(self, a,b,c,d):
             self.a,self.b,self.c,self.d = a,b,c,d
             self.__preprocess()
+
     def __preprocess(self):
         if self.a<0:
             self.a = -self.a
