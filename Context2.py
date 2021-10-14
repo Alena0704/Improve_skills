@@ -1,7 +1,7 @@
-'''
-Describe problem in
-https://contest.yandex.ru/contest/28738/problems/A/
-'''
+    '''
+    Describe problem in
+    https://contest.yandex.ru/contest/28738/problems/A/
+    '''
 
 def desicion_determine_max():
     maximum = 0
@@ -16,9 +16,10 @@ def desicion_determine_max():
     print(num_maximal)
 
     '''
-Describe problem in
-https://contest.yandex.ru/contest/28738/problems/B/
+    Describe problem in
+    https://contest.yandex.ru/contest/28738/problems/B/
     '''
+
 class DecisionB:
 
     def __init__(self):
@@ -46,10 +47,10 @@ class DecisionB:
             ans=max(ans, mindist)
         print(ans)
 
-'''
-Describe problem in
-https://contest.yandex.ru/contest/28738/problems/C/
-'''
+    '''
+    Describe problem in
+    https://contest.yandex.ru/contest/28738/problems/C/
+    '''
 
 def desicion_polindrom():
     str_ = str(input())
@@ -69,12 +70,13 @@ def desicion_polindrom():
         print()
     else:
         print(max)
-desicion_polindrom()
 
-'''
-Desicion describe in
-https://contest.yandex.ru/contest/28738/problems/E/
-'''
+
+    '''
+    Desicion describe in
+    https://contest.yandex.ru/contest/28738/problems/E/
+    '''
+
 def desicion_diploma_in_packages():
     n = int(input())
     lst = list(map(int, input().split()))
