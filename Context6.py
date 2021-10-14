@@ -8,29 +8,28 @@ class desicion_A:
         self.n = int(input())
         self.lst = list(map(int,input().split()))
         self.lst.append(-1)
-        #self.lst.sort()
-        self.dict_={}
-        ch = self.lst[0]
-        index=0
-        for ind,i in enumerate(self.lst):
-            if i!=ch:
-                self.dict_[ch] = (index,ind-1)
-                index = ind
-                ch = i
-        print(self.dict_)
+        self.lst.sort()
+        # self.dict_={}
+        # ch = self.lst[0]
+        # index=0
+        # for ind,i in enumerate(self.lst):
+        #     if i!=ch:
+        #         self.dict_[ch] = (index,ind-1)
+        #         index = ind
+        #         ch = i
+        # print(self.dict_)
         
-    def func_find(self,l,r,m,t)->int:
+    def func_find(self,t)->int:
+        l = -1
+        r = len(self.lst)
         m = (l+r)//2
-        while len(self.lst[l:r+1])>1:
-            
-            if self.lst[m]>t:
-                r = m-1
-            elif self.lst[m]<t:
-                l=m+1
-            elif self.lst[m]==t:
-                break
+        while l+1<r:
             m = (l+r)//2
-        return m
+            if self.lst[m]<=t:
+                l=m
+            else:
+                r=m
+        return l
         
     def left_right_border2(self):
         k = int(input())
@@ -51,26 +50,8 @@ class desicion_A:
         ans=[]
         for _ in range(k):
             l,r = map(int,input().split())
-            l1 = self.func_find(0,self.n-1,0,l)
-            r1 = self.func_find(0,self.n-1,0,r)
-            #print(self.lst[l1],self.lst[r1])
-            if self.lst[l1]<l or self.lst[r1]>r:
-                ans.append(0)
-                continue
-            if l1>0:
-                s = self.lst[l1-1]
-                while s==self.lst[l1]:
-                    l1-=1
-                    if l1==0:
-                        break
-            if r1<self.n-1:
-                s = self.lst[r1+1]
-                while s==self.lst[r1]:
-                    r1+=1
-                    if r1==self.n-1:
-                        break
-            size=len(self.lst[l1:r1+1])
-            ans.append(size)
+            cnt = self.func_find(r)-self.func_find(l-1)
+            ans.append(cnt)
         print(' '.join(map(str,ans)))
     def left_right_border(self):
         k = int(input())
@@ -101,8 +82,8 @@ class desicion_A:
             ans.append((a+1,b+1))
         for i,j in ans:
             print('{} {}'.format(i,j))
-#desicion = desicion_A()
-#desicion.left_right_border2()
+desicion = desicion_A()
+desicion.how_many_numbers()
 
 '''
 Describe problem:
@@ -213,5 +194,15 @@ class expression:
                 left=m
         return (left+right)/2
             
-exp = expression()
-print(exp.root())
+#exp = expression()
+#print(exp.root())
+
+'''
+Describe problem:
+https://contest.yandex.ru/contest/29188/problems/D/
+'''
+
+'''
+Describe problem:
+https://contest.yandex.ru/contest/29188/problems/E/
+'''
