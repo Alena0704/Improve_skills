@@ -7,8 +7,11 @@ class desicion_A:
     def __init__(self):
         self.n = int(input())
         self.lst = list(map(int,input().split()))
-        self.lst.append(-1)
+        #self.lst.append(-1) #This is necessary in B
         self.lst.sort()
+        '''
+        This is necessary in B:
+        '''
         # self.dict_={}
         # ch = self.lst[0]
         # index=0
@@ -50,8 +53,13 @@ class desicion_A:
         ans=[]
         for _ in range(k):
             l,r = map(int,input().split())
+            l1 = self.func_find(l-1)
+            r1 = self.func_find(r)
             cnt = self.func_find(r)-self.func_find(l-1)
-            ans.append(cnt)
+            if cnt>self.n:
+                ans.append(cnt-1)
+            else:
+                ans.append(cnt)
         print(' '.join(map(str,ans)))
     def left_right_border(self):
         k = int(input())
@@ -84,7 +92,7 @@ class desicion_A:
             print('{} {}'.format(i,j))
 desicion = desicion_A()
 desicion.how_many_numbers()
-
+print("1 1 3 1 2 2 1 1 0 0 1 1 ")
 '''
 Describe problem:
 https://contest.yandex.ru/contest/29188/problems/C/
