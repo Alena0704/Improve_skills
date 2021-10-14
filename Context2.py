@@ -18,25 +18,32 @@ def desicion_determine_max():
 Describe problem in
 https://contest.yandex.ru/contest/28738/problems/B/
     '''
-def desicion_home_and_shops():
-    arr = list(map(int, input().split()))
-    shop = -20
-    points = [0]*len(arr)
-    for i in range(len(arr)):
-        if arr[i] == 2:
-            shop = i
-        if arr[i] ==1:
-            points[i]=i-shop
-    ans = 0
-    shop=30
-    for i in range(len(arr)-1, -1,-1):
-        if arr[i] == 2:
-            shop = i
-        if arr[i] ==1:
-            mindist=min(shop-i,points[i])
-        ans=max(ans, mindist)
-        
-    print(ans)
+class DecisionB:
+    
+    def __init__(self):
+        self.arr = list(map(int, input().split()))
+        self.n = len(self.arr)
+        self.points=[]
+
+    def __preprocess(self):
+        shop=-20
+        self.points = [0]*self.n
+        for i in range(self.n):
+            if self.arr[i] == 2:
+                shop = i
+            if self.arr[i] ==1:
+                self.points[i]=i-shop
+
+    def get_answer(self):
+        ans = 0
+        shop=30
+        for i in range(self.n-1, -1,-1):
+            if self.arr[i] == 2:
+                shop = i
+            if self.arr[i] ==1:
+                mindist=min(shop-i,self.points[i])
+            ans=max(ans, mindist)
+        print(ans)
 
 '''
 Describe problem in
