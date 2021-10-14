@@ -3,7 +3,7 @@ job1:
   script:
     - pip install pycodestyle
     - for file in ./**; do
-        - pycodestyle file
+        - pycodestyle ${file}
       done
 job2:
   script:
