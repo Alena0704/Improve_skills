@@ -19,7 +19,7 @@ Describe problem in
 https://contest.yandex.ru/contest/28738/problems/B/
     '''
 class DecisionB:
-    
+
     def __init__(self):
         self.arr = list(map(int, input().split()))
         self.n = len(self.arr)
@@ -53,10 +53,13 @@ def desicion_polindrom():
     str_ = str(input())
     max=0
     flag=False
-    if len(str_)==2 and str_[0]!=str_[1]:
+    if len(str_)==1:
+        print('0')
+        flag=True
+    elif len(str_)==2 and str_[0]!=str_[1]:
         print('1')
         flag=True
-    for i in range(0,(len(str_)-1)//2):
+    for i in range(0,(len(str_))//2):
         if str_[i]!=str_[len(str_)-(i)-1]:
             max+=1
 
@@ -64,6 +67,7 @@ def desicion_polindrom():
         print()
     else:
         print(max)
+desicion_polindrom()
 
 '''
 Desicion describe in
