@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  Check_context:
+  check_context:
 
     runs-on: ubuntu-latest
 
