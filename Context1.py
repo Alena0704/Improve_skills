@@ -3,7 +3,7 @@
     https://contest.yandex.ru/contest/28730/problems/B/
 '''
 
-def desicion_metro:
+def desicion_metro():
     n,i,j = map(int, input().split())
     dist1 = abs(j-i)-1
     dist2 = n - dist1 - 2
@@ -49,7 +49,7 @@ def desicion_triangle():
     d = int(input())
     x, y = map(int, input().split())
     if x>=0 and y>=0 and x+y<=d:
-    print(0)
+        print(0)
     else:
-    dist_ = [(x**2+y**2,1),((x-d)**2+y**2,2),(x**2+(y-d)**2,3)]
-    print(min(dist_)[1])
+        dist_ = [(x**2+y**2,1),((x-d)**2+y**2,2),(x**2+(y-d)**2,3)]
+        print(min(dist_)[1])
