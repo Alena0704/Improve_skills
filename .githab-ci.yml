@@ -2,9 +2,13 @@ image: python:latest
 job1:
   script:
     - pip install pycodestyle
-    - for file in ./**; do
-        - pycodestyle ${file}
-      done
+    - pycodestyle Context1.py
+    - pycodestyle Context2.py
+    - pycodestyle Context3.py
+    - pycodestyle Context4.py
+    - pycodestyle Context5.py
+    - pycodestyle Context6.py
+    - pycodestyle Context8.py
 job2:
   script:
     - python -m unittest -v test_case6.py
