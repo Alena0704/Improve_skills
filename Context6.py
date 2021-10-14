@@ -3,28 +3,32 @@ Describe problem in
 https://contest.yandex.ru/contest/29188/problems/A/
 https://contest.yandex.ru/contest/29188/problems/B/
 '''
-class desicion_A:
+from typing import List
+class decision_A_B(object):        
+    def __init__(self, lst: List[int], n:int):
+        self.n = n
+        self.lst = lst
+        self._preprocess()
+
+    def _preprocess(self):
+        pass
+class desicion_A(decision_A_B):
     def __init__(self):
-        self.n = int(input())
-        self.lst = list(map(int,input().split()))
-        #self.lst.append(-1) #This is necessary in B
-        self.lst.sort()
-        '''
-        This is necessary in B:
-        '''
-        # self.dict_={}
-        # ch = self.lst[0]
-        # index=0
-        # for ind,i in enumerate(self.lst):
-        #     if i!=ch:
-        #         self.dict_[ch] = (index,ind-1)
-        #         index = ind
-        #         ch = i
-        # print(self.dict_)
+        n = int(input())
+        lst = list(map(int,input().split()))
+        super().__init__(lst, n)
+        self._preprocess()
         
-    def func_find(self,t)->int:
+    def __init__(self, lst: List[int], n: int):
+        super().__init__(lst, n)
+        self._preprocess()
+
+    def _preprocess(self):
+        self.lst.sort()
+        
+    def func_find(self,t: int)->int:
         l = -1
-        r = len(self.lst)
+        r = self.n
         m = (l+r)//2
         while l+1<r:
             m = (l+r)//2
@@ -34,65 +38,63 @@ class desicion_A:
                 r=m
         return l
         
-    def left_right_border2(self):
-        k = int(input())
-        ans=[]
-        arr = list(map(int,input().split()))
-        for index in range(k):
-            m = arr[index]
-            if m in self.dict_:
-                a,b = self.dict_[m]
-                ans.append((a+1,b+1))
-            else:
-                ans.append((0,0))
-        for i,j in ans:
-            print('{} {}'.format(i,j))
+    def get_numbers_in_l_r(self, l: int,r: int) -> int:
+        cnt = self.func_find(r)-self.func_find(l-1)
+        return cnt
 
     def how_many_numbers(self):
         k = int(input())
         ans=[]
         for _ in range(k):
             l,r = map(int,input().split())
-            l1 = self.func_find(l-1)
-            r1 = self.func_find(r)
-            cnt = self.func_find(r)-self.func_find(l-1)
-            if cnt>self.n:
-                ans.append(cnt-1)
-            else:
-                ans.append(cnt)
+            ans.append(self.get_numbers_in_l_r(l,r))
         print(' '.join(map(str,ans)))
-    def left_right_border(self):
+
+#desicion = desicion_A()
+#desicion.how_many_numbers()
+
+class decision_B(decision_A_B):
+    def __init__(self):
+        n = int(input())
+        lst = list(map(int,input().split()))
+        super().__init__(lst,n)
+        self.lst.append(-1)
+        self.dict_={}
+        self._preprocess()
+    def __init__(self, lst: List[int], n: int):
+        super().__init__(lst, n)
+        self.dict_={}
+        self.lst.append(-1)
+        self._preprocess()
+        
+    def _preprocess(self):
+        self.lst.append(-1) #This is necessary in B
+        self.dict_={}
+        ch = self.lst[0]
+        index=0
+        for ind,i in enumerate(self.lst):
+             if i!=ch:
+                 self.dict_[ch] = (index,ind-1)
+                 index = ind
+                 ch = i
+    def determine_borders(self,m):
+        if m in self.dict_:
+                a,b = self.dict_[m]
+                return (a+1,b+1)
+        else:
+                return (0,0)
+
+    def left_right_border2(self):
         k = int(input())
         ans=[]
         arr = list(map(int,input().split()))
         for index in range(k):
             m = arr[index]
-            l1 = self.func_find(0,self.n-1,0,m)
-            #print(self.lst[l1],self.lst[r1])
-            if self.lst[l1]!=m:
-                ans.append((0,0))
-                continue
-            #print(m,l1)
-            a,b=l1-1,l1+1
-            if m>0:
-                while True:
-                    if m!=self.lst[a] or a==0:
-                        a+=1
-                        break
-                    a-=1
-                    
-            if l1<self.n:
-                while True:
-                    if b==self.n or m!=self.lst[b]:
-                        b-=1
-                        break
-                    b+=1
-            ans.append((a+1,b+1))
+            ans.append(self.determine_borders(m))
         for i,j in ans:
             print('{} {}'.format(i,j))
-desicion = desicion_A()
-desicion.how_many_numbers()
-print("1 1 3 1 2 2 1 1 0 0 1 1 ")
+
+    
 '''
 Describe problem:
 https://contest.yandex.ru/contest/29188/problems/C/
@@ -183,15 +185,20 @@ def get_decision_exercise():
 class expression:
     def __init__(self):
         self.a,self.b,self.c,self.d = map(int, input().split())
+        self.__preprocess()
+    def __init__(self, a,b,c,d):
+            self.a,self.b,self.c,self.d = a,b,c,d
+            self.__preprocess()
+    def __preprocess(self):
         if self.a<0:
             self.a = -self.a
             self.b = -self.b
             self.c = -self.c
             self.d = -self.d
-
+    
     def f(self,x):
         return self.a*x**3+self.b*x**2+self.c*x+self.d
-    def root(self,eps = 0.00001):
+    def root(self,eps = 0.0000001):
         left = -2000
         right = 2000
         while right-left>eps:
@@ -202,8 +209,7 @@ class expression:
                 left=m
         return (left+right)/2
             
-#exp = expression()
-#print(exp.root())
+
 
 '''
 Describe problem:
