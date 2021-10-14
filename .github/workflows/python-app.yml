@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  Check_context:
 
     runs-on: ubuntu-latest
 
@@ -22,7 +22,7 @@ jobs:
         python-version: 3.9
     - name: check_pycodestyle
       run: |
-        pip install flake8 pytest
+        pip install pycodestyle
         pycodestyle Context1.py
         pycodestyle Context2.py
         pycodestyle Context3.py
