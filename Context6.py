@@ -217,8 +217,53 @@ class expression:
 Describe problem:
 https://contest.yandex.ru/contest/29188/problems/D/
 '''
-
+class loggers:
+    def __init__(self):
+        self.A, self.K, self.B, self.M, self.X = map(int, input().split())
+    def define_quality_days(self):
+        L = 0
+        R = self.X
+        while R - L > 1:
+            M = (R + L) // 2
+            if self.A * (M - M //self.K) + self.B * (M - M // self.M) < self.X:
+                L = M
+            else:
+                R = M
+        return R
+            
 '''
 Describe problem:
 https://contest.yandex.ru/contest/29188/problems/E/
 '''
+
+class otrezki:
+
+    def __init__(self):
+        self.n, self.k = map(int, input().split())
+        self.x = list(map(int, input().split()))
+        self.x.sort()
+
+    def __preprocess(self):
+        self.x.sort()
+
+    def decision(self):
+        left = 0
+        right = self.x[-1]-self.x[0]
+        while left < right:
+            l = (left + right)//2
+            cnt = 0
+            maxright = self.x[0] - 1
+            for i in self.x:
+                if i > maxright:
+                    cnt += 1
+                    maxright = i + 1
+            if cnt <= self.k:
+                right = l
+            else:
+                left = l + 1
+        return left
+
+otrezki = otrezki()
+print(otrezki.decision())
+
+
