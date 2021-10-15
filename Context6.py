@@ -248,7 +248,7 @@ class otrezki:
 
     def decision(self):
         left = 0
-        right = self.x[-1]-self.x[0]
+        right = self.x[-1] - self.x[0]
         while left < right:
             l = (left + right)//2
             cnt = 0
