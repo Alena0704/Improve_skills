@@ -20,6 +20,10 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
+    - name: Check style
+      run: |
+        pip install pycodestyle
+        pycodestyle Context6.py
     - name: Unit tests
       run: |
-        python -m unittest -v test_case6.py
+        python -m unittest -v testcase6.py
