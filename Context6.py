@@ -241,7 +241,12 @@ class otrezki:
     def __init__(self):
         self.n, self.k = map(int, input().split())
         self.x = list(map(int, input().split()))
-        self.x.sort()
+        self.__preprocess()
+    
+    def __init__(self,n,k,lst: List[int]):
+        self.n, self.k = n,k
+        self.x = lst
+        self.__preprocess()
 
     def __preprocess(self):
         self.x.sort()
@@ -263,7 +268,5 @@ class otrezki:
                 left = l + 1
         return left
 
-otrezki = otrezki()
-print(otrezki.decision())
 
 
