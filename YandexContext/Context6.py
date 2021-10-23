@@ -244,29 +244,31 @@ class otrezki:
         self.__preprocess()
     
     def __init__(self,n,k,lst: List[int]):
-        self.n, self.k = n,k
-        self.x = lst
-        self.__preprocess()
+         self.n, self.k = n,k
+         self.x = lst
+         self.__preprocess()
 
     def __preprocess(self):
         self.x.sort()
 
     def decision(self):
-        left = 0
+        left = self.x[0]
         right = self.x[-1] - self.x[0]
         while left < right:
-            l = (left + right)//2
+            l = (left + right) // 2
             cnt = 0
             maxright = self.x[0] - 1
-            for i in self.x:
-                if i > maxright:
+            for nowx in self.x:
+                if nowx > maxright:
                     cnt += 1
-                    maxright = i + 1
-            if cnt <= self.k:
+                    maxright = nowx + 1
+            if cnt < self.k:
                 right = l
             else:
                 left = l + 1
+            
         return left
 
 
-
+otrez = otrezki(6,2,[1, 2, 3, 9, 8, 7])
+print(otrez.decision())
