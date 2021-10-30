@@ -11,9 +11,8 @@ def DecisionA():
         lst.append((r,-1))
         
     lst.sort()
-    depth = 0; #intersecting segments
     res = 0 #result length
-    p = lst[0][1]
+    p = lst[0][1] #intersecting segments
     res+=lst[1][0]-lst[0][0]
     if k>1:
         for i in range(1, k*2-1):
@@ -22,5 +21,5 @@ def DecisionA():
             p+=lst[i][1]
     print(res)
 
-DecisionA()
+
 
