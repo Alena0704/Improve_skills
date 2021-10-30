@@ -1,6 +1,13 @@
 '''
 Describe problem in
 https://contest.yandex.ru/contest/29396/problems/A/
+
+I add elements in list as separately elements - start and finish ponts.
+I mark this points as 1 and -1 as start and finish segment accordingly.
+Then I go to the list and have quality sum as p.
+If sum p and new point's mark is positive, 
+I sum difference between the coordinate of the next point and present point.
+This sum is result task (res).
 '''
 def DecisionA():
     k = int(input())
@@ -23,7 +30,18 @@ def DecisionA():
 
 '''
 Describe problem in
-https://contest.yandex.ru/contest/29396/problems/A/
+https://contest.yandex.ru/contest/29396/problems/B/
+
+I create two lists, where the first list has numbers time start,
+the second list has numbers finish time.
+I sort the first list in ascending order and the second list in descending order.
+I memory the first value in the second list.
+Then I go to the first massive and check this time is the more my memorise value (Fmin).
+If it is true, I change value on the next value in the list, else I add one equipment for checking (cnt). 
+cnt is result task.
+
+The algorithm is working in O(N+log(N)), because sort is need log(N) time,
+and I need O(N) time when go to the first list.
 '''
 
 def DecisionB():
