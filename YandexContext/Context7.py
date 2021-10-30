@@ -21,5 +21,27 @@ def DecisionA():
             p+=lst[i][1]
     print(res)
 
+'''
+Describe problem in
+https://contest.yandex.ru/contest/29396/problems/A/
+'''
 
-
+def DecisionB():
+    n = int(input())
+    lst_x = []
+    lst_y=[]
+    for _ in range(n):
+        T, L = map(int, input().split())
+        lst_x.append(T)
+        lst_y.append(T+L)
+    lst_x.sort()
+    lst_y.sort(reverse=True)
+    cnt = 0
+    F_min = lst_y.pop()
+    for T in lst_x:
+        if T >= F_min:
+            F_min = lst_y.pop()
+        else:
+            cnt+=1
+    print(cnt)
+DecisionB()
