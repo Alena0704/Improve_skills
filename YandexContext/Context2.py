@@ -18,6 +18,19 @@ def desicion_determine_max():
     '''
     Describe problem in
     https://contest.yandex.ru/contest/28738/problems/B/
+
+    Class DecisionB get list buildings: 1 - living home, 2 - shop, 3 - office.
+    We have to find maximum distance for nearest shop from living house.
+    In prerocess I perfom points as minimal distance from living house to shop.
+    If I find shop, I remember coordinate. 
+    If I find living house, I remember for this coordinate difference between remember shop and this coordinate.
+    When I get answer, I also go ro list in reduse order, but logic work is the same.
+    If I find shop, I remember coordinate.
+    If I find living house, I consider between safe values in list 
+    and choose minimum value between remember value and new difference between remember shop and this coordinate. 
+    Then I check is this value is more them maximum distance.
+
+    The computational complexity is O(N^2), because we have to go to the list two times.
     '''
 
 class DecisionB:
@@ -50,6 +63,11 @@ class DecisionB:
     '''
     Describe problem in
     https://contest.yandex.ru/contest/28738/problems/C/
+
+    I go to list of simbols of half of word.
+    I check current simbol is the same the mirror final simbol.
+    If it is not, I add one.
+    Mirror simbol is length of word minus k. k is current iterator simbol in the word.
     '''
 
 def desicion_polindrom():
