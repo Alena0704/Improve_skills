@@ -13,14 +13,14 @@ with open('train.npy', 'rb') as fin:
 with open('target.npy', 'rb') as fin:
     y = np.load(fin)
 
-#model_SGD = Model_SGD(X,y,100)
-#model_SGD.fit()
+model_SGD = Model_SGD(X,y,100)
+model_SGD.fit()
 
-#model_momentum = Model_Momentum(X,y,100)
-#model_momentum.fit()
+model_momentum = Model_Momentum(X,y,100)
+model_momentum.fit()
 
-#model_Rms = Model_RMSPROP(X,y,100)
-#model_Rms.fit()
+model_Rms = Model_RMSPROP(X,y,100)
+model_Rms.fit()
 
 model_adam = Model_Adam(X,y,100)
 model_adam.fit()
