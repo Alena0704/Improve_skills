@@ -25,5 +25,5 @@ class Model_Adam(Model_RMSPROP, Model_Momentum):
             self.nu = (self.alpha * self.nu + (1-self.alpha) * self.compute_grad(self.X[ind, :], self.y[ind], self.w))/(1-self.alpha**i)
 
             self.w = self.w - self.eta*self.nu/(self.G+self.eps)**0.5
-
+            plt.clf()
         self.visualize(self.X, self.y, self.w, loss)
