@@ -23,5 +23,5 @@ class Model_RMSPROP(Model_SGD):
             
             self.G = self.betta * self.G + (1-self.betta)*(self.compute_grad(self.X[ind, :], self.y[ind], self.w)**2)
             self.w = self.w - self.eta*self.compute_grad(self.X[ind, :], self.y[ind], self.w)/(np.sqrt(self.G + self.eps))
-
+            plt.clf()
         self.visualize(self.X, self.y, self.w, loss)
