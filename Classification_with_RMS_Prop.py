@@ -9,7 +9,7 @@ class Model_RMSPROP(Model_SGD):
         self.g2 = np.zeros_like(self.w) # we start with None so that you can update this value correctly on the first iteration
         self.G = np.zeros_like(self.w)
         self.eps = eps
-        self.alpha = 0.9
+        self.betta = alpha
 
     def fit(self):
         loss = np.zeros(self.n_iter)
@@ -21,7 +21,7 @@ class Model_RMSPROP(Model_SGD):
             if i % 10 == 0:
                 self.visualize(self.X[ind, :], self.y[ind], self.w, loss)
             
-            self.G = self.alpha * self.G + (1-self.alpha)*(self.compute_grad()**2)
-            self.w = self.w - self.eta*self.compute_grad()/(np.sqrt(self.G + self.eps))
+            self.G = self.betta * self.G + (1-self.betta)*(self.compute_grad(self.X[ind, :], self.y[ind], self.w)**2)
+            self.w = self.w - self.eta*self.compute_grad(self.X[ind, :], self.y[ind], self.w)/(np.sqrt(self.G + self.eps))
 
         self.visualize(self.X, self.y, self.w, loss)
