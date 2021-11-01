@@ -21,5 +21,5 @@ class Model_Momentum(Model_SGD):
             
             self.nu = self.alpha * self.nu + self.eta * self.compute_grad(self.X[ind, :], self.y[ind], self.w)
             self.w = self.w - self.nu
-
+            plt.clf()
         self.visualize(self.X, self.y, self.w, loss)
