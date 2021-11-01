@@ -31,7 +31,7 @@ class Model_SGD:
         X_expanded = np.hstack((X_expanded,np.ones([X_expanded.shape[0],1])))
         return X_expanded
 
-    def probability(X, w):
+    def probability(self,X, w):
         """
         Given input features and weights
         return predicted probabilities of y==1 given x, P(y=1|x), see description above
@@ -59,7 +59,7 @@ class Model_SGD:
         x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
         y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
         xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
-        Z = self.probability(self.expand(np.c_[xx.ravel(), yy.ravel()]), w)
+        Z = self.probability(self.__expand(np.c_[xx.ravel(), yy.ravel()]), w)
         Z = Z.reshape(xx.shape)
         plt.subplot(1, 2, 1)
         plt.contourf(xx, yy, Z, alpha=0.8)
@@ -96,6 +96,6 @@ class Model_SGD:
 
             # Keep in mind that compute_grad already does averaging over batch for you!
             self.w = self.w - self.eta * self.compute_grad(self.X[ind, :], self.y[ind], self.w)
-            
+            plt.clf()
 
         self.visualize(self.X, self.y, self.w, loss)
