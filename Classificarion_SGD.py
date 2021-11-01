@@ -96,6 +96,6 @@ class Model_SGD:
 
             # Keep in mind that compute_grad already does averaging over batch for you!
             self.w = self.w - self.eta * self.compute_grad(self.X[ind, :], self.y[ind], self.w)
-            # TODO:<your code here>
+            
 
         self.visualize(self.X, self.y, self.w, loss)
