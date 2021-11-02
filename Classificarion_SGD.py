@@ -3,13 +3,15 @@ import matplotlib.pyplot as plt
 from IPython import display
 
 class Model_SGD:
-    def __init__(self, X, y, n_iter, eta=0.1, batch_size=4):
+    def __init__(self, X, y, epoches, n_iter, eta=0.1, batch_size=4):
         self.X = self.__expand(X)
         self.y = y
         self.w = np.array([0, 0, 0, 0, 0, 1])
         self.n_iter = n_iter
+        self.epoches = epoches
         self.eta = eta
         self.batch_size = batch_size
+        self.title = "SGD"
 
     def __expand(self, X):
         """
@@ -53,7 +55,7 @@ class Model_SGD:
         p = np.clip(p, 1e-10, 1 - 1e-10)
         return -np.sum(self.y*np.log(p)+(1-self.y)*np.log(1-p))/len(self.X)
 
-    def visualize(self, X, y, w, history):
+    def visualize(self,title, X, y, w, history):
         """draws classifier prediction with matplotlib magic"""
         h = 0.01
         x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
@@ -64,9 +66,9 @@ class Model_SGD:
         plt.subplot(1, 2, 1)
         plt.contourf(xx, yy, Z, alpha=0.8)
         plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired)
+        plt.title = title
         plt.xlim(xx.min(), xx.max())
         plt.ylim(yy.min(), yy.max())
-        
         plt.subplot(1, 2, 2)
         plt.plot(history)
         plt.grid()
@@ -84,7 +86,22 @@ class Model_SGD:
         p = self.probability(X, w)
         return 1./y.shape[0]*((p - y)@X)
 
-    def fit(self):
+    def generate_batches(self):
+        """
+        param X: np.array[n_objects, n_features] --- матрица объекты-признаки
+        param y: np.array[n_objects] --- вектор целевых переменных
+        """
+        assert len(self.X) == len(self.y)
+        np.random.seed(42)
+        X = np.array(self.X)
+        y = np.array(self.y)
+        perm = np.random.permutation(len(X))
+
+        for i in np.arange(int(len(X)//self.batch_size)):
+            yield X[perm[i * self.batch_size : (i + 1) * self.batch_size]], y[perm[i * self.batch_size : (i + 1) * self.batch_size]]  
+
+
+    def fit_stochastic(self):
         loss = np.zeros(self.n_iter)
         plt.figure(figsize=(12, 5))
 
@@ -92,10 +109,22 @@ class Model_SGD:
             ind = np.random.choice(self.X.shape[0], self.batch_size)
             loss[i] = self.compute_loss()
             if i % 10 == 0:
-                self.visualize(self.X[ind, :], self.y[ind], self.w, loss)
+                self.visualize(self.title, self.X[ind, :], self.y[ind], self.w, loss)
 
             # Keep in mind that compute_grad already does averaging over batch for you!
             self.w = self.w - self.eta * self.compute_grad(self.X[ind, :], self.y[ind], self.w)
             plt.clf()
 
-        self.visualize(self.X, self.y, self.w, loss)
+        self.visualize(self.title, self.X, self.y, self.w, loss)
+
+    def fit(self):
+        loss = []#np.zeros(self.epoches*len(self.X)//self.batch_size)
+        plt.figure(figsize=(12, 5))
+
+        for i in range(self.epoches):
+            for X_batch, y_batch in self.generate_batches():
+                loss.append(self.compute_loss())   
+                # Keep in mind that compute_grad already does averaging over batch for you!
+                self.w = self.w - self.eta * self.compute_grad(X_batch, y_batch, self.w)
+        self.visualize(self.title, self.X, self.y, self.w, loss)
+        
