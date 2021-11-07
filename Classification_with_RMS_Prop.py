@@ -18,9 +18,9 @@ class Model_RMSPROP(Model_SGD):
 
         for _ in range(self.epoches):
             for X_batch, y_batch in self.generate_batches():
-                loss.append(self.compute_loss())                
+                              
                 self.G = self.betta * self.G + (1-self.betta)*(self.compute_grad(X_batch, y_batch, self.w)**2)
                 self.w = self.w - self.eta*self.compute_grad(X_batch, y_batch, self.w)/(np.sqrt(self.G + self.eps))
-                
+                loss.append(self.compute_loss())
         self.visualize(self.title, self.X, self.y, self.w, loss)
             

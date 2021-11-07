@@ -123,8 +123,9 @@ class Model_SGD:
 
         for i in range(self.epoches):
             for X_batch, y_batch in self.generate_batches():
-                loss.append(self.compute_loss())   
+                  
                 # Keep in mind that compute_grad already does averaging over batch for you!
                 self.w = self.w - self.eta * self.compute_grad(X_batch, y_batch, self.w)
-        self.visualize(self.title, self.X, self.y, self.w, loss)
+                loss.append(self.compute_loss())
+        self.visualize(self.title, self.X, self.y, self.w, loss) 
         

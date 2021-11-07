@@ -16,10 +16,11 @@ class Model_Momentum(Model_SGD):
 
         for _ in range(self.epoches):
             for X_batch, y_batch in self.generate_batches():
-                loss.append(self.compute_loss())                
+                               
                 self.nu = self.alpha * self.nu + self.eta * self.compute_grad(X_batch, y_batch, self.w)
                 self.w = self.w - self.nu
                 #self.visualize(self.title,X_batch, y_batch, self.w, loss)
+                loss.append(self.compute_loss())
         self.visualize(self.title, self.X, self.y, self.w, loss)
             
 
@@ -34,9 +35,10 @@ class Nesterov(Model_Momentum):
 
         for _ in range(self.epoches):
             for X_batch, y_batch in self.generate_batches():
-                loss.append(self.compute_loss())
+                
                 self.nu = self.alpha * self.nu + self.eta * self.compute_grad(X_batch, y_batch, self.w-self.alpha * self.nu)
                 self.w = self.w - self.nu
             #self.visualize(self.title,X_batch, y_batch, self.w, loss)
+                loss.append(self.compute_loss())
         self.visualize(self.title, self.X, self.y, self.w, loss)
             
